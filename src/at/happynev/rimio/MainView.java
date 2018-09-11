@@ -4,6 +4,7 @@ import com.sun.javafx.css.Stylesheet;
 import javafx.application.Platform;
 import javafx.beans.binding.*;
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.css.PseudoClass;
@@ -54,6 +55,7 @@ public class MainView {
     private Pane settingsViewContainer;
     private Scene scene;
     private DoubleProperty portraitScale = new SimpleDoubleProperty(0.8);
+    private File lastLoadedMap;
 
     public MainView() {
         buildSettingsView();
@@ -211,7 +213,7 @@ public class MainView {
         HBox enableMapImageDetail = new HBox(textMapDirectory, buttonChooseMapDirectory);
 
         enableMapImageDetail.visibleProperty().bind(enableMapImage.selectedProperty());
-        enableMapImage.managedProperty().bind(enableMapImage.selectedProperty());
+        enableMapImageDetail.managedProperty().bind(enableMapImage.selectedProperty());
         bindToSettings("enableMapShowColonist", enableMapShowColonist.selectedProperty(), true);
         bindToSettings("enableMapShowWork", enableMapShowWork.selectedProperty(), true);
         bindToSettings("enableMapImage", enableMapImage.selectedProperty(), true);
@@ -282,10 +284,11 @@ public class MainView {
         columnPortrait.setPrefWidth(10 + ArtAssets.BIG_ICON_SIZE * portraitScale.get());
         columnLabel.setCellValueFactory(param -> param.getValue().label);
         columnMood.setCellValueFactory(param -> param.getValue().needs.get("Mood"));
-        columnTraits.setCellValueFactory(param -> new SimpleStringProperty("dummy"));
-        columnNeeds.setCellValueFactory(param -> new SimpleStringProperty("dummy"));
-        columnSkills.setCellValueFactory(param -> new SimpleStringProperty("dummy"));
-        columnHealth.setCellValueFactory(param -> new SimpleStringProperty("dummy"));
+        ObservableValue<String> dummyString = new SimpleStringProperty("dummy");
+        columnTraits.setCellValueFactory(param -> dummyString);
+        columnNeeds.setCellValueFactory(param -> dummyString);
+        columnSkills.setCellValueFactory(param -> dummyString);
+        columnHealth.setCellValueFactory(param -> dummyString);
         columnLabel.setSortable(true);
         columnLabel.setCellFactory(param -> new PawnTableCell<String>() {
             @Override
@@ -364,6 +367,7 @@ public class MainView {
                 if (item == null || empty) {
                     setGraphic(null);
                 } else {
+                    System.out.println("create needs cell for " + pawn.nickName);
                     getTableColumn().setResizable(false); //prevent autosize. doesnt work atm. should be fixed in java 8u192 due in oct 2018?
                     FlowPane needGrid = new FlowPane();
                     Pane shrinkContainer = new Pane(needGrid);
@@ -393,6 +397,7 @@ public class MainView {
                 if (item == null || empty) {
                     setGraphic(null);
                 } else {
+                    System.out.println("create skills cell for " + pawn.nickName);
                     getTableColumn().setResizable(false); //prevent autosize. doesnt work atm. should be fixed in java 8u192 due in oct 2018?
                     FlowPane skillGrid = new FlowPane();
                     Pane shrinkContainer = new Pane(skillGrid);
@@ -675,11 +680,14 @@ public class MainView {
         DataController.getInstance().currentGameData.addListener((observable, oldValue, newValue) -> {
             if (configToggles.get("enableMapImage").get()) {
                 File newImage = Utilities.findMapImage(Settings.getInstance().getProperty("textMapDirectory"), DataController.getInstance().worldSeed.get());
-                if (newImage != null) {
+                if (newImage != null && !newImage.equals(lastLoadedMap)) {
+                    lastLoadedMap = newImage;
                     try {
+                        System.out.println("loading new map");
                         Image img = new Image(newImage.toURI().toURL().toString(), true);
                         img.progressProperty().addListener((observable1, oldValue1, newValue1) -> {
                             if (newValue1.floatValue() == 1.0f) {
+                                System.out.println("loading new map finished");
                                 map.setImage(img);
                             }
                         });
@@ -813,7 +821,7 @@ public class MainView {
     }
 
     public void afterDataUpdate() {
-        autoFitPawnTable();
+        //autoFitPawnTable(); causes skills/needs to revert
     }
 
     public static class PawnTableCell<T> extends TableCell<PawnInstance, T> {
