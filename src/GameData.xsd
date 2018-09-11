@@ -1,0 +1,179 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="GameData">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:long" name="dataVersion"/>
+                <xs:element type="xs:long" name="tick"/>
+                <xs:element type="xs:string" name="worldSeed"/>
+                <xs:element type="xs:boolean" name="includesMaps"/>
+                <xs:element type="xs:boolean" name="includesPawns"/>
+                <xs:element type="mapsType" name="maps"/>
+                <xs:element type="pawnType" name="colonists"/>
+                <xs:element type="pawnType" name="visitors"/>
+                <xs:element type="pawnType" name="enemies"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="MapDataType">
+        <xs:sequence>
+            <xs:element type="xs:int" name="id"/>
+            <xs:element type="xs:boolean" name="colony"/>
+            <xs:element type="xs:short" name="sizeX"/>
+            <xs:element type="xs:short" name="sizeY"/>
+            <xs:element type="xs:float" name="wealthFloors"/>
+            <xs:element type="xs:float" name="wealthBuildings"/>
+            <xs:element type="xs:float" name="wealthItems"/>
+            <xs:element type="xs:float" name="wealthPawns"/>
+            <xs:element type="xs:float" name="wealthTotal"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="mapsType">
+        <xs:sequence>
+            <xs:element type="MapDataType" name="MapData" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="locationType">
+        <xs:sequence>
+            <xs:element type="xs:short" name="x"/>
+            <xs:element type="xs:short" name="y"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="traitsType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="string" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="skillDataType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="name"/>
+            <xs:element type="xs:string" name="passion"/>
+            <xs:element type="xs:short" name="level"/>
+            <xs:element type="xs:boolean" name="enabled"/>
+            <xs:element type="xs:float" name="xpProgress"/>
+            <xs:element type="xs:float" name="totalXp"/>
+            <xs:element type="xs:float" name="currentXp"/>
+            <xs:element type="xs:float" name="levelupXp"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="skillsDataType">
+        <xs:sequence>
+            <xs:element type="skillsType" name="skills"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="skillsType">
+        <xs:sequence>
+            <xs:element type="skillDataType" name="SkillData" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="KeyValuePairType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="key"/>
+            <xs:element type="xs:string" name="value"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="needsType">
+        <xs:sequence>
+            <xs:element type="KeyValuePairType" name="KeyValuePair" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="needDataType">
+        <xs:sequence>
+            <xs:element type="needsType" name="needs"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="healthDataType">
+        <xs:sequence>
+            <xs:element name="hediffs">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="HediffDataType" name="HediffData" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="capacitiesType">
+        <xs:sequence>
+            <xs:element type="KeyValuePairType" name="KeyValuePair" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="capacityDataType">
+        <xs:sequence>
+            <xs:element type="capacitiesType" name="capacities"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="targetType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="name"/>
+            <xs:element type="locationType" name="location"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="jobType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="name"/>
+            <xs:element type="targetType" name="targetA" minOccurs="0"/>
+            <xs:element type="targetType" name="targetB" minOccurs="0"/>
+            <xs:element type="targetType" name="targetC" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PawnDataType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id"/>
+            <xs:element type="xs:string" name="fullName"/>
+            <xs:element type="xs:string" name="nickName"/>
+            <xs:element type="xs:string" name="label"/>
+            <xs:element type="xs:boolean" name="includesSkills"/>
+            <xs:element type="xs:boolean" name="includesNeeds"/>
+            <xs:element type="xs:boolean" name="includesHealth"/>
+            <xs:element type="xs:boolean" name="includesJob"/>
+            <xs:element type="xs:boolean" name="includesPortrait"/>
+            <xs:element type="xs:short" name="onMap"/>
+            <xs:element type="xs:boolean" name="colonist"/>
+            <xs:element type="xs:boolean" name="visitor"/>
+            <xs:element type="xs:boolean" name="prisoner"/>
+            <xs:element type="xs:boolean" name="enemy"/>
+            <xs:element type="xs:boolean" name="drafted"/>
+            <xs:element type="xs:boolean" name="selected"/>
+            <xs:element type="xs:float" name="age"/>
+            <xs:element type="xs:float" name="currentHealth"/>
+            <xs:element type="xs:boolean" name="dead"/>
+            <xs:element type="xs:boolean" name="downed"/>
+            <xs:element type="xs:boolean" name="sleeping"/>
+            <xs:element type="xs:boolean" name="idle"/>
+            <xs:element type="xs:boolean" name="medicalRest"/>
+            <xs:element type="xs:boolean" name="inMentalState"/>
+            <xs:element type="xs:boolean" name="inAggroMentalState"/>
+            <xs:element type="locationType" name="location" minOccurs="0"/>
+            <xs:element type="traitsType" name="traits" minOccurs="0"/>
+            <xs:element type="skillsDataType" name="skillsData" minOccurs="0"/>
+            <xs:element type="needDataType" name="needData" minOccurs="0"/>
+            <xs:element type="healthDataType" name="healthData" minOccurs="0"/>
+            <xs:element type="capacityDataType" name="capacityData" minOccurs="0"/>
+            <xs:element type="jobType" name="job" minOccurs="0"/>
+            <xs:element type="xs:base64Binary" name="portrait" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="HediffDataType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="label"/>
+            <xs:element type="xs:boolean" name="tendable"/>
+            <xs:element type="xs:boolean" name="tended"/>
+            <xs:element type="xs:float" name="bleedRate"/>
+            <xs:element type="xs:float" name="pain"/>
+            <xs:element type="xs:string" name="location" minOccurs="0"/>
+            <xs:element type="xs:float" name="healthPercentImpact"/>
+            <xs:element type="xs:boolean" name="permanent"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="hediffsType">
+        <xs:sequence>
+            <xs:element type="HediffDataType" name="HediffData" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="pawnType">
+        <xs:sequence>
+            <xs:element type="PawnDataType" name="PawnData" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

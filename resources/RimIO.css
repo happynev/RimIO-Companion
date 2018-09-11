@@ -1,0 +1,332 @@
+.root{
+    COLOR_BACKGROUND:#15181D;
+    COLOR_BLUEBAR:#334954;
+    COLOR_GREYBAR:#2d3035;
+    COLOR_GREYSELECTED:#42454a;
+    COLOR_GREYBORDER:#6A6967;
+    COLOR_BROWNBUTTON: #69512f;
+    COLOR_BROWNBUTTON_BRIGHT: #7e602e;
+    COLOR_BROWNBUTTON_DARK: #49351a;
+    COLOR_SELECTED: #334970;
+    COLOR_ALERT: #FF4040;
+    COLOR_DEAD: #AA2020;
+    COLOR_WHITETEXT: #EEEEEE;
+    COLOR_MOODBLUE: #33CDD9;
+    COLOR_MOODYELLOW: #FFEB04;
+    COLOR_MOODRED: #D93333;
+
+	-fx-background-color: COLOR_BACKGROUND;
+	-fx-font-size: 12px;
+}
+
+.pane{
+    -fx-background-color: COLOR_BACKGROUND;
+}
+
+.split-pane{
+    -fx-background-color: COLOR_BACKGROUND;
+}
+
+.split-pane .split-pane-divider{
+    -fx-background-color: COLOR_GREYBORDER;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler{
+    -fx-background-color: COLOR_BLUEBAR;
+    -fx-border-color: black;
+    -fx-border-width: 0 1 0 0;
+}
+
+.table-view .column-header .label{
+    -fx-background-color: COLOR_BLUEBAR;
+}
+
+.column-header:hover{
+    -fx-background-color: COLOR_GREYSELECTED;
+}
+
+.table-view .table-row-cell{
+    -fx-background-color: COLOR_BACKGROUND;
+}
+
+.table-view .table-cell{
+    -fx-text-alignment: left;
+    -fx-border-color: black;
+    -fx-border-width: 0 1 1 0;
+}
+
+.table-view .table-row-cell:gameselected{
+    -fx-background-color: COLOR_SELECTED;
+}
+
+.table-view .table-cell:empty,
+.table-view .table-row-cell:empty
+{
+    -fx-background-color: transparent;
+    -fx-border-color:transparent;
+}
+
+
+.table-view .table-row-cell:alert{
+    -fx-background-color: COLOR_ALERT;
+}
+.table-view .table-row-cell:dead{
+    -fx-background-color: COLOR_DEAD;
+}
+
+.table-view .table-row-cell:hover{
+    -fx-background-color: derive(COLOR_BACKGROUND,20%);
+}
+
+.label:drafted{
+    -fx-underline: true;
+}
+
+.text-area{
+    -fx-text-fill: COLOR_WHITETEXT
+}
+
+.text-area .content{
+    -fx-background-color: COLOR_BACKGROUND;
+}
+
+.label{
+    -fx-font-weight: bold;
+    -fx-text-fill: COLOR_WHITETEXT;
+}
+
+.label:biggerDisplay{
+    -fx-font-weight: bolder;
+    -fx-font-size: 16px;
+}
+
+.label:smallerDisplay{
+    //-fx-font-weight: bolder;
+    -fx-font-size: 10px;
+}
+
+.label:drafted{
+    -fx-underline: true;
+}
+
+.progress-bar{
+	-fx-text-box-border: transparent;
+	-fx-control-inner-background: COLOR_GREYBAR;
+	-fx-accent:COLOR_GREYSELECTED;
+}
+.progress-bar .bar {
+    -fx-padding: 6px;
+    -fx-background-insets: 0;
+}
+.progress-bar:moodFine .bar {
+    -fx-accent:COLOR_MOODBLUE;
+}
+.progress-bar:moodWarning .bar {
+    -fx-accent:COLOR_MOODYELLOW;
+}
+.progress-bar:moodDanger .bar {
+    -fx-accent:COLOR_MOODRED;
+}
+
+.progress-bar:thin .bar {
+    -fx-background-insets: 1 1 2 1;
+    -fx-padding: 0.20em;
+}
+
+.button,
+.toggle-button{
+    -fx-font-weight: bold;
+    -fx-text-fill: COLOR_WHITETEXT;
+    -fx-background-color: COLOR_BROWNBUTTON;
+    -fx-border-color:  COLOR_BROWNBUTTON_BRIGHT, COLOR_BROWNBUTTON_DARK;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 4 4 0 0, 0 0 4 4;
+    -fx-padding: 3 5 3 5;
+    -fx-background-insets: 4;
+
+}
+.button:hover,
+.toggle-button:hover{
+    -fx-background-color: derive(COLOR_BROWNBUTTON,10%);
+    -fx-border-color: derive(COLOR_BROWNBUTTON_BRIGHT,10%), derive(COLOR_BROWNBUTTON_DARK,10%);
+}
+
+.button:pressed,
+.toggle-button:selected{
+     -fx-border-width: 0 0 4 4, 4 4 0 0;
+     -fx-background-color: derive(COLOR_BROWNBUTTON,-15%);
+     -fx-border-color: derive(COLOR_BROWNBUTTON_BRIGHT,-15%), derive(COLOR_BROWNBUTTON_DARK,-15%);
+}
+
+.check-box{
+    -fx-font-weight: bold;
+    -fx-text-fill: COLOR_WHITETEXT;
+}
+
+.check-box > .box{
+    -fx-background-color: transparent;
+    -fx-background-radius: 3, 2, 1;
+    -fx-padding: 1 1 1 1;
+    //-fx-border-color: COLOR_GREYBORDER;
+    //-fx-border-width: 1;
+}
+
+.check-box:selected > .box,
+.check-box:indeterminate > .box
+{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0 0 0 0, 0;
+}
+
+.check-box .box .mark{
+    -fx-background-color: null;
+    -fx-background-image: url("icons/CheckOff.png");
+    -fx-background-size: 20 20;
+    -fx-shape: none;
+    -fx-padding: 10px;
+}
+.check-box:selected .box .mark{
+   -fx-background-image: url("icons/CheckOn.png");
+}
+
+.check-box:indeterminate .box .mark {
+    -fx-background-image: url("icons/CheckPartial.png");
+}
+
+.radio-button{
+    -fx-font-weight: bold;
+    -fx-text-fill: COLOR_WHITETEXT;
+}
+
+.radio-button .radio {
+    -fx-background-color: null;
+    -fx-background-image: url("icons/RadioButOff.png");
+    -fx-background-size: 20 20;
+    -fx-shape: none;
+    -fx-padding: 10px;
+}
+
+.radio-button:selected .radio {
+    -fx-background-image: url("icons/RadioButOn.png");
+}
+.radio-button .dot {
+    -fx-background-radius:0;
+    -fx-padding: 0px;
+}
+
+.scroll-bar .track{
+    -fx-background-color :derive(COLOR_GREYBORDER,-20%);
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+.scroll-pane .corner{
+    -fx-background-color: derive(COLOR_GREYBORDER,-20%);
+}
+
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow{
+    -fx-shape: " ";
+    -fx-padding: 0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape: " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: derive(COLOR_BACKGROUND,-10%);
+    -fx-background-insets: 2.0, 0.0, 0.0;
+    -fx-background-radius: 2.0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color:derive(black,90.0%);
+    -fx-background-insets: 2.0, 0.0, 0.0;
+    -fx-background-radius: 2.0em;
+}
+
+.tooltip {
+    -fx-background-color: COLOR_BACKGROUND;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em; /* 10px */
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-color: COLOR_GREYBORDER;
+    -fx-border-width:1;
+}
+
+.locationMarker{
+    -fx-stroke: COLOR_MOODBLUE;
+    -fx-stroke-width: 2;
+}
+
+.locationMarker:colonist{
+    -fx-fill:COLOR_MOODBLUE;
+}
+
+.locationMarker:prisoner{
+    -fx-fill:COLOR_BROWNBUTTON;
+}
+
+.locationMarker:enemy{
+    -fx-fill:COLOR_ALERT;
+}
+
+.locationMarker:hover{
+    -fx-fill:COLOR_MOODYELLOW;
+    -fx-stroke: COLOR_MOODYELLOW;
+}
+
+.locationMarker:work{
+    -fx-fill:transparent;
+}
+
+.workPath{
+    -fx-stroke: COLOR_WHITETEXT;
+    -fx-stroke-width: 2;
+}
+
+.text-field {
+    -fx-background-color: COLOR_BACKGROUND;
+    -fx-border-color: COLOR_GREYBORDER;
+    //-fx-background-insets: 0;
+    -fx-prompt-text-fill: COLOR_GREYSELECTED;
+    -fx-padding: 6 0 5 0;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: COLOR_WHITETEXT;
+}
+.text-field:readonly .text{
+    -fx-text-fill: derive(COLOR_WHITETEXT,-20%);
+}
+
